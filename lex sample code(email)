@@ -1,0 +1,15 @@
+%{
+int flag=0;
+%}
+%%
+[a-z . 0-9]+@[a-z]+".com"|".in" { printf("\naccepted"); }
+.+ {printf("\n not accepted");}
+%%
+int main()
+{
+printf("enter mail:");
+yylex();
+}
+int yywrap()
+{
+}
