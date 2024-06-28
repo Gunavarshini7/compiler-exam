@@ -1,0 +1,154 @@
+1.	Write a LEX program to identify the capital words from the given input.
+%{
+    int capital_count = 0;
+%}
+
+%%
+[A-Z][A-Za-z]*[^a-z]   { capital_count++; } // Matches words starting with a capital letter
+
+.       ;   // Ignore other characters
+
+%%
+
+int yywrap() {
+    return 1; // Indicate that there are no more files to parse
+}
+
+int main() {
+    yylex();
+    printf("Number of capital words: %d\n", capital_count);
+    return 0;
+}
+ 
+2. Write a LEX program to check whether the given input is digit or not.
+%%
+-?[0-9]+ {printf("\nValid digit \n");} 
+.* printf("\nInvalid digit\n");
+%%
+int yywrap(){}
+int main()											
+{
+yylex();
+return 0;
+}
+ 
+3. The Company ABC runs with employees with several departments. The Organization manager had all the mobile numbers of employees. Assume that you are the manager and need to verify the valid mobile numbers because there may be some invalid numbers present. Implement a LEX program to check whether the mobile number is valid or not.
+%{
+%}
+%%
+[6-9][0-9]{9} {printf("\n mobile number valid");}
+.+ {printf("\n mobile number invalid");}
+%%
+int yywrap(void){}
+int main()
+{
+printf("\n enter number");
+yylex();
+printf("\n");
+return 0;
+}
+OUTPUT
+ 
+4. In a class, an English teacher was teaching the vowels and consonants to the students.  She says “Vowel sounds allow the air to flow freely, causing the chin to drop noticeably, whilst consonant sounds are produced by restricting the air flow”. As a class activity the students are asked to identify the vowels and consonants in the given word/sentence and count the number of elements in each.  Write an algorithm to help the student to count the number of vowels and consonants in the given sentence.
+%{
+int vow_count=0;
+int const_count=0;
+%}
+
+%%
+
+[aeiouAEIOU] {vow_count++;}
+
+[a-zA-Z] {const_count++;}
+
+%%
+
+int yywrap(){}
+int main()
+{
+printf("enter the string of vowels and consonents:\n");
+yylex();
+printf("number of vowels : %d ,number of consonentsare:%d",vow_count,const_count);
+}
+OUTPUT
+ 
+5. Keywords are predefined, reserved words used in programming that have special meanings to the compiler. Keywords are part of the syntax and they cannot be used as an identifier. In general there are 32 keywords. The prime function of Lexical Analyser is token Generation. Among the 6 types of tokens, differentiating Keyword and Identifier is a challenging issue. Thus write a LEX program to separate keywords and identifiers. 
+%{
+#include<stdio.h>
+%}
+
+%%
+
+if|else|while|int|switch|for|char { printf("\n%s is a KEYWORD", yytext);}
+[a-zA-Z0-9]+ { printf("\n%s is IDENTIFIER", yytext);}
+
+%%
+int yywrap( ){}
+int main()
+{
+printf("Enter the input:");
+	while(yylex());
+}
+OUTPUT
+ 
+6.Write a LEX program to identify and count positive and negative numbers.
+%{
+    #include <stdio.h> // Include standard I/O library for printf
+    int positive_count = 0;
+    int negative_count = 0;
+%}
+
+%%
+[+-]?[0-9]+      { 
+                    int num = atoi(yytext); // Convert matched text to integer
+                    if (num > 0)
+                        positive_count++;
+                    else if (num < 0)
+                        negative_count++;
+                 }
+
+.       ;   // Ignore other characters
+
+%%
+
+int yywrap() {
+    return 1; // Indicate that there are no more files to parse
+}
+
+int main() {
+    yylex(); // Start lexical analysis
+    printf("Number of positive numbers: %d\n", positive_count);
+    printf("Number of negative numbers: %d\n", negative_count);
+    return 0;
+}OUTPUT
+ 
+7. Write a LEX program to recognise numbers and words in a statement. Pooja is a small girl of age 3 always fond of games. Due to the pandemic, she was not allowed to play outside. So her mother designs a gaming event by showing a flash card. Pooja has to separate the numbers in one list and words in another list shown in the flash card.
+%%
+[0-9]+     { printf("Number: %s\n", yytext); }
+[a-zA-Z]+  { printf("Word: %s\n", yytext); }
+.|\n       ;
+%%
+
+int yywrap() {
+    return 1;
+}
+int main() {
+    yylex();
+    return 0;
+}
+OUTPUT
+ 
+
+8.Write a LEX program to accept string starting with vowel.
+%%
+[aeiouAEIOU][a-zA-Z]*   { printf("String starting with vowel: %s\n", yytext); }
+.|\n                     ;
+%%
+int yywrap() {
+    return 1;
+}
+
+int main() {
+    yylex();
+    return 0;
+}
